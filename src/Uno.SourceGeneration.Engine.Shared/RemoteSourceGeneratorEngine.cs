@@ -142,7 +142,6 @@ namespace Uno.SourceGeneratorTasks
 				if (loadedAsm.Length > 1)
 				{
 					var duplicates = loadedAsm
-						.Skip(1)
 						.Where(a => a.GetName().Version == loadedAsm[0].GetName().Version)
 						.ToArray();
 

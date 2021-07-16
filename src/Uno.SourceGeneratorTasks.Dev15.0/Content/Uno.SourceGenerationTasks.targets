@@ -143,6 +143,7 @@
 							  UseGenerationController="$(UnoSourceGeneratorUseGenerationController)"
 							  UseGenerationHost="$(UnoSourceGeneratorUseGenerationHost)"
 							  CaptureGenerationHostOutput="$(UnoSourceGeneratorCaptureGenerationHostOutput)"
+							  LaunchDebugger="$(UnoSourceGeneratorLaunchDebugger)"
 							  BinLogOutputPath="$(UnoSourceGeneratorBinLogOutputPath)"
 							  BinLogEnabled="$(UnoSourceGeneratorUnsecureBinLogEnabled)"
 							  ReferencePath="@(_AssembliesForReferenceCopyLocalPaths)"

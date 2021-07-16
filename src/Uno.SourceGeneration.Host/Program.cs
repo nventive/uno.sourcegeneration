@@ -16,8 +16,10 @@ namespace Uno.SourceGeneration.Host
 	{
 		static int Main(string[] args)
 		{
-			// Uncomment this for easier debugging
-			// Debugger.Launch();
+			if (args.Any(a => a.StartsWith("-debuggerlaunch")))
+			{
+				Debugger.Launch();
+			}
 
 			if (args.Any(a => a.StartsWith("-pipename:")))
 			{

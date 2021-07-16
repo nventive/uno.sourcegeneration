@@ -1,13 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Project>
-	<PropertyGroup>
-      <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  <PropertyGroup>
+	<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
 
-      <!-- Fallback cache does not have the same contents: https://github.com/NuGet/Home/issues/7921#issuecomment-478152479-->
-      <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+	<!-- Fallback cache does not have the same contents: https://github.com/NuGet/Home/issues/7921#issuecomment-478152479-->
+	<DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
 
-      <!-- Enable floating versions support -->
-      <RestoreForceEvaluate>true</RestoreForceEvaluate>
-      <NoWarn>$(NoWarn);NU1701</NoWarn>
-    </PropertyGroup>
+	<!-- Enable floating versions support -->
+	<RestoreForceEvaluate>true</RestoreForceEvaluate>
+	<NoWarn>$(NoWarn);NU1701</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+	<IsTestProject>$(MSBuildProjectName.Contains('Test'))</IsTestProject>
+	<IsSampleProject>$(MSBuildProjectName.Contains('Sample'))</IsSampleProject>
+  </PropertyGroup>
+
+  <Choose>
+	<When Condition="'$(Configuration)' != 'Debug' and '$(IsTestProject)' != 'true' and '$(SourceLinkEnabled)' != 'false' and '$(IsSampleProject)' != 'true'">
+	  <PropertyGroup>
+		<!-- Optional: Declare that the Repository URL can be published to NuSpec -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<!-- Optional: Include PDB in the built .nupkg -->
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+	  </PropertyGroup>
+	  <ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+	  </ItemGroup>
+	</When>
+  </Choose>
+
 </Project>

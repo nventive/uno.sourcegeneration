@@ -85,6 +85,8 @@ namespace Uno.SourceGeneratorTasks
 
 		public string SharedGenerationId { get; set; }
 
+		public bool LaunchDebugger { get; set; }
+
 		[Required]
 		public Microsoft.Build.Framework.ITaskItem[] ReferencePath { get; set; }
 
@@ -102,7 +104,10 @@ namespace Uno.SourceGeneratorTasks
 
 			Log.LogMessage(MessageImportance.Low, $"Running generation in {Process.GetCurrentProcess().Id}/{Process.GetCurrentProcess().ProcessName}");
 
-			// Debugger.Launch();
+			if (LaunchDebugger)
+			{
+				Debugger.Launch();
+			}
 
 			try
 			{
@@ -305,6 +310,11 @@ namespace Uno.SourceGeneratorTasks
 				using (var process = new Process())
 				{
 					var startInfo = buildInfo();
+
+					if (LaunchDebugger)
+					{
+						startInfo.Arguments += " -debuggerlaunch";
+					}
 
 					if (captureHostOutput)
 					{
